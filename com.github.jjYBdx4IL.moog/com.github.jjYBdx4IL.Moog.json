@@ -1,0 +1,484 @@
+{
+    "app-id": "com.github.jjYBdx4IL.Moog",
+    "runtime": "org.freedesktop.Platform",
+    "runtime-version": "18.08",
+    "sdk": "org.freedesktop.Sdk",
+    "command": "run.sh",
+    "finish-args": [
+        "--socket=x11",
+        "--socket=wayland",
+        "--share=network",
+        "--device=all",
+        "--share=ipc",
+        "--filesystem=host",
+        "--env=LV2_PATH=/app/lib64/lv2"
+    ],
+    "modules": [
+        {
+            "name": "jack2",
+            "buildsystem": "simple",
+            "build-commands": [
+                "./waf configure --prefix=/app",
+                "./waf",
+                "./waf install"
+            ],
+            "sources": [
+                {
+                    "type": "git",
+                    "url": "https://github.com/jackaudio/jack2.git",
+                    "tag": "v1.9.12"
+                }
+            ]
+        },
+        {
+            "name": "lv2",
+            "buildsystem": "simple",
+            "build-commands": [
+                "./waf configure --prefix=/app",
+                "./waf",
+                "./waf install"
+            ],
+            "sources": [
+                {
+                    "type": "git",
+                    "url": "https://github.com/drobilla/lv2.git",
+                    "tag": "v1.16.0"
+                }
+            ]
+        },
+        {
+            "name": "serd",
+            "buildsystem": "simple",
+            "build-commands": [
+                "./waf configure --prefix=/app",
+                "./waf",
+                "./waf install"
+            ],
+            "sources": [
+                {
+                    "type": "git",
+                    "url": "https://github.com/drobilla/serd.git",
+                    "tag": "v0.30.0"
+                }
+            ]
+        },
+        {
+            "name": "sord",
+            "buildsystem": "simple",
+            "build-commands": [
+                "./waf configure --prefix=/app",
+                "./waf",
+                "./waf install"
+            ],
+            "sources": [
+                {
+                    "type": "git",
+                    "url": "https://github.com/drobilla/sord.git",
+                    "tag": "v0.16.2"
+                }
+            ]
+        },
+        {
+            "name": "sratom",
+            "buildsystem": "simple",
+            "build-commands": [
+                "./waf configure --prefix=/app",
+                "./waf",
+                "./waf install"
+            ],
+            "sources": [
+                {
+                    "type": "git",
+                    "url": "https://github.com/drobilla/sratom.git",
+                    "tag": "v0.6.2"
+                }
+            ]
+        },
+        {
+            "name": "lilv",
+            "buildsystem": "simple",
+            "build-commands": [
+                "./waf configure --prefix=/app",
+                "./waf",
+                "./waf install"
+            ],
+            "sources": [
+                {
+                    "type": "git",
+                    "url": "https://github.com/drobilla/lilv.git",
+                    "tag": "v0.24.4"
+                }
+            ]
+        },
+        {
+            "name": "suil",
+            "buildsystem": "simple",
+            "build-commands": [
+                "./waf configure --prefix=/app",
+                "./waf",
+                "./waf install"
+            ],
+            "sources": [
+                {
+                    "type": "git",
+                    "url": "https://github.com/drobilla/suil.git",
+                    "tag": "v0.10.4"
+                }
+            ]
+       },
+        {
+            "name": "doxygen",
+            "buildsystem": "cmake",
+            "sources": [
+                {
+                    "type": "git",
+                    "url": "https://github.com/doxygen/doxygen.git",
+                    "tag": "Release_1_8_16"
+                }
+            ]
+        },
+        {
+            "name": "mm-common",
+            "buildsystem": "meson",
+            "config-opts": [
+                "-Duse-network=false"
+            ],
+            "sources": [
+                {
+                    "type": "git",
+                    "url": "https://github.com/GNOME/mm-common.git",
+                    "commit": "8ee3e238a9628a5abfb2a3e52e5dc243a112a815"
+                },
+                {
+                    "type": "file",
+                    "url": "https://gcc.gnu.org/onlinedocs/libstdc++/latest-doxygen/libstdc++.tag",
+                    "sha256": "f6c8c74e8293aefaefb4d25fd154d5f537b3bc80e7ceecaa02c5a01836fc09e6",
+                    "dest-filename": "./doctags/libstdc++.tag"
+                }
+            ]
+        },
+        {
+            "name": "sigc++",
+            "buildsystem": "simple",
+            "build-commands": [
+                "./autogen.sh",
+                "./configure --prefix=/app",
+                "make",
+                "make install"
+            ],
+            "sources": [
+                {
+                    "type": "git",
+                    "url": "https://github.com/libsigcplusplus/libsigcplusplus.git",
+                    "tag": "2.10.2"
+                }
+            ]
+        },
+        {
+            "name": "sigc++3",
+            "buildsystem": "simple",
+            "build-commands": [
+                "./autogen.sh",
+                "./configure --prefix=/app",
+                "make",
+                "make install"
+            ],
+            "sources": [
+                {
+                    "type": "git",
+                    "url": "https://github.com/libsigcplusplus/libsigcplusplus.git",
+                    "tag": "2.99.13"
+                }
+            ]
+        },
+        {
+            "name": "glib",
+            "buildsystem": "meson",
+            "config-opts": [
+                "-Ddemos=false",
+                "-Dbuild-examples=false",
+                "-Dbuild-tests=false"
+            ],
+            "sources": [
+                {
+                    "type": "archive",
+                    "url": "http://ftp.gnome.org/pub/GNOME/sources/glib/2.60/glib-2.60.6.tar.xz",
+                    "sha256": "ff8fab8d8deaa4fd0536c90f90d9769a09071779c7e6183907f6855645bffb6c"
+                }
+            ]
+        },
+        {
+            "name": "glibmm",
+            "buildsystem": "simple",
+            "build-commands": [
+                "./configure --prefix=/app",
+                "make -j4 install"
+            ],
+            "sources": [
+                {
+                    "type": "archive",
+                    "url": "http://ftp.gnome.org/pub/GNOME/sources/glibmm/2.61/glibmm-2.61.1.tar.xz",
+                    "sha256": "82f92853060ad84025b99b1116d9487fba6c6353256dfe16b14bedbd6b1ead0b"
+                }
+            ]
+        },
+        {
+            "name": "glibmm24",
+            "buildsystem": "simple",
+            "build-commands": [
+                "./configure --prefix=/app",
+                "make install -j4"
+            ],
+            "sources": [
+                {
+                    "type": "archive",
+                    "url": "http://ftp.gnome.org/pub/GNOME/sources/glibmm/2.58/glibmm-2.58.1.tar.xz",
+                    "sha256": "6e5fe03bdf1e220eeffd543e017fd2fb15bcec9235f0ffd50674aff9362a85f0"
+                }
+            ]
+        },
+        {
+            "name": "cairomm",
+            "buildsystem": "simple",
+            "build-commands": [
+                "./configure --prefix=/app",
+                "make CXXFLAGS=-std=c++1z",
+                "make install"
+            ],
+            "sources": [
+                {
+                    "type": "archive",
+                    "url": "http://ftp.gnome.org/pub/GNOME/sources/cairomm/1.15/cairomm-1.15.4.tar.xz",
+                    "sha256": "4cd9fd959538953dfa606aaa7a31381e3193eebf14d814d97ef928684ee9feb5"
+                }
+            ]
+        },
+        {
+            "name": "pangomm",
+            "buildsystem": "simple",
+            "build-commands": [
+                "sed -i configure -e 's:glibmm-2.60:glibmm-2.62:g'",
+                "sed -i tools/Makefile.in -e 's:extra_defs-2.60:extra_defs-2.62:g'",
+                "./configure --prefix=/app",
+                "make",
+                "make install"
+            ],
+            "sources": [
+                {
+                    "type": "archive",
+                    "url": "http://ftp.gnome.org/pub/GNOME/sources/pangomm/2.43/pangomm-2.43.1.tar.xz",
+                    "sha256": "00483967b4ed0869da09dc0617de45625b9ab846c7b07aa25dfc940a4fc540a4"
+                }
+            ]
+        },
+        {
+            "name": "graphene",
+            "buildsystem": "meson",
+            "sources": [
+                {
+                    "type": "git",
+                    "url": "https://github.com/ebassi/graphene.git",
+                    "tag": "1.9.6"
+                }
+            ]
+        },
+        {
+            "name": "gtk4",
+            "buildsystem": "meson",
+            "config-opts": [
+                "-Ddemos=false",
+                "-Dbuild-examples=false",
+                "-Dbuild-tests=false"
+            ],
+            "sources": [
+                {
+                    "type": "archive",
+                    "url": "http://ftp.gnome.org/pub/GNOME/sources/gtk/3.96/gtk-3.96.0.tar.xz",
+                    "sha256": "bdb8b03bbbcc3ad72ccf1b854a73fc40cf472da5f9c0948ce25a1e67d99344ce"
+                }
+            ]
+        },
+        {
+            "name": "atkmm",
+            "buildsystem": "simple",
+            "build-commands": [
+                "sed -i configure -e 's:glibmm-2.60:glibmm-2.62:g'",
+                "sed -i codegen/Makefile.in -e 's:extra_defs-2.60:extra_defs-2.62:g'",
+                "./configure --prefix=/app",
+                "make install"
+            ],
+            "sources": [
+                {
+                    "type": "archive",
+                    "url": "http://ftp.gnome.org/pub/GNOME/sources/atkmm/2.29/atkmm-2.29.1.tar.xz",
+                    "sha256": "4140baa3c7991e8e0c518b17939c1a655e3e578bcdaf2fc0f2767e07853af545"
+                }
+            ]
+        },
+        {
+            "name": "gtkmm4",
+            "buildsystem": "simple",
+            "build-commands": [
+                "./configure --prefix=/app",
+                "make -j4 install"
+            ],
+            "sources": [
+                {	
+                    "type": "archive",
+                    "url": "http://ftp.gnome.org/pub/GNOME/sources/gtkmm/3.95/gtkmm-3.95.1.tar.xz",
+                    "sha256": "17e40ba353804b51a5a4b84be68e744e3d43613eb114a5776cafe6bb27dda0a9"
+                }
+            ]
+        },
+        {
+            "name": "cairomm10",
+            "buildsystem": "simple",
+            "build-commands": [
+                "./configure --prefix=/app",
+                "make CXXFLAGS=-std=c++1z",
+                "make install"
+            ],
+            "sources": [
+                {
+                    "type": "archive",
+                    "url": "http://ftp.gnome.org/pub/GNOME/sources/cairomm/1.12/cairomm-1.12.0.tar.xz",
+                    "sha256": "a54ada8394a86182525c0762e6f50db6b9212a2109280d13ec6a0b29bfd1afe6"
+                }
+            ]
+        },
+        {
+            "name": "pangomm14",
+            "buildsystem": "simple",
+            "build-commands": [
+                "./configure --prefix=/app",
+                "make -j4 install"
+            ],
+            "sources": [
+                {
+                    "type": "archive",
+                    "url": "http://ftp.gnome.org/pub/GNOME/sources/pangomm/2.27/pangomm-2.27.1.tar.bz2",
+                    "sha256": "be3a0cf41589dab65e2d0ee3896f025179aa3676be70b87c50e1dd769becc79d"
+                }
+            ]
+        },
+        {
+            "name": "atkmm16",
+            "buildsystem": "simple",
+            "build-commands": [
+                "./configure --prefix=/app",
+                "make -j4 install"
+            ],
+            "sources": [
+                {
+                    "type": "archive",
+                    "url": "http://ftp.gnome.org/pub/GNOME/sources/atkmm/2.22/atkmm-2.22.7.tar.xz",
+                    "sha256": "bfbf846b409b4c5eb3a52fa32a13d86936021969406b3dcafd4dd05abd70f91b"
+                }
+            ]
+       },
+       {
+            "name": "gtk+2.0",
+            "buildsystem": "simple",
+            "build-commands": [
+                "./configure --prefix=/app",
+                "make -j4 install"
+            ],
+            "sources": [
+                {
+                    "type": "archive",
+                    "url": "http://ftp.acc.umu.se/pub/GNOME/sources/gtk+/2.24/gtk+-2.24.32.tar.xz",
+                    "sha256": "b6c8a93ddda5eabe3bfee1eb39636c9a03d2a56c7b62828b359bf197943c582e"
+                }
+            ]
+        },
+       {
+            "name": "gtkmm24",
+            "buildsystem": "simple",
+            "build-commands": [
+                "./configure --prefix=/app",
+                "make -j4 install"
+            ],
+            "sources": [
+                {
+                    "type": "archive",
+                    "url": "http://ftp.gnome.org/pub/GNOME/sources/gtkmm/2.24/gtkmm-2.24.5.tar.xz",
+                    "sha256": "0680a53b7bf90b4e4bf444d1d89e6df41c777e0bacc96e9c09fc4dd2f5fe6b72"
+                }
+            ]
+        },
+        {
+            "name": "boost",
+            "buildsystem": "simple",
+            "build-commands": [
+                "./bootstrap.sh",
+                "./b2 --prefix=/app install"
+            ],
+            "sources": [
+                {
+                    "type": "archive",
+                    "url": "https://dl.bintray.com/boostorg/release/1.71.0/source/boost_1_71_0.tar.bz2",
+                    "sha256": "d73a8da01e8bf8c7eda40b4c84915071a8c8a0df4a6734537ddde4a8580524ee"
+                }
+            ]
+        },
+        {
+            "name": "lv2-c++-tools",
+            "buildsystem": "simple",
+            "build-commands": [
+                "./configure --prefix=/app",
+                "make install CXXFLAGS=-std=c++1z"
+            ],
+            "sources": [
+                {
+                    "type": "git",
+                    "url": "https://git.savannah.gnu.org/git/ll-plugins/lv2-c++-tools.git",
+                    "tag": "Release_1.0.5"
+                }
+            ]
+        },
+        {
+            "name": "jalv",
+            "buildsystem": "simple",
+            "build-commands": [
+                "./waf configure --prefix=/app",
+                "./waf",
+                "./waf install"
+            ],
+            "sources": [
+                {
+                    "type": "git",
+                    "url": "https://github.com/drobilla/jalv.git",
+                    "tag": "v1.6.2"
+                }
+            ]
+        },
+       {
+            "name": "moog",
+            "buildsystem": "simple",
+            "build-commands": [
+                "sed -i Makefile -e 's:/usr/local/lib:/app/lib64:g'",
+                "make install"
+            ],
+            "sources": [
+                {
+                    "type": "git",
+                    "url": "https://github.com/nicoroulet/moog.git",
+                    "commit": "a2d43931ae58561fff2c22d0885f54ebebab36d0"
+                }
+            ]
+         },
+         {
+            "name": "run-script",
+            "buildsystem": "simple",
+            "build-commands": [
+                "install -D run.sh /app/bin/run.sh"
+            ],
+            "sources": [
+                {
+                    "type": "file",
+                    "path": "run.sh"
+                }
+            ]
+         }
+    ]
+}
